@@ -1,0 +1,37 @@
+[project]
+name = "nm-platform-starter"
+version = "0.1.0"
+description = "Plantilla IA en entorno Docker reproducible"
+readme = "README.md"
+authors = [{ name = "Jorge Ibanez", email = "jonan0804@gmail.com" }]
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+  "numpy==1.26.4",
+  "pandas==2.1.1",
+  "ipykernel",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "black",
+  "flake8",
+  "pre-commit",
+  "isort",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv]
+# Grupos que se instalan por defecto cuando ejecutas `uv sync`
+# (vacío = sólo dependencies; para incluir dev pon ["dev"])
+default-groups = []
+
+# [tool.uv.sources]
+# accuracyestimator = { path = "packages/accuracyestimator-0.1.0-py3-none-any.whl" }

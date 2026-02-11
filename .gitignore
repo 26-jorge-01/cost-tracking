@@ -1,0 +1,22 @@
+# Carpeta local para datos pesados (git-ignored)
+data/
+
+# Variables de entorno
+.env
+
+# Carpetas __pycache__ y archivos .pyc
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Logs
+logs/
+*.log
+
+# Paquetes
+.venv/
+
+# Configuraciones de vscode
+.vscode/
+
+*-info

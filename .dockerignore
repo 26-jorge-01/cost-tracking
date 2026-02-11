@@ -1,0 +1,49 @@
+# Carpeta de datos local y outputs
+data/
+outputs/
+artifacts/
+logs/
+checkpoints/
+wandb/
+mlruns/
+
+# Entornos/dep caches
+.venv/
+venv/
+.env/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Control de versiones / IDE
+.git/
+.gitignore
+.gitattributes
+.vscode/
+.idea/
+
+# Node / Front
+node_modules/
+dist/
+build/
+
+# Archivos grandes comunes
+*.parquet
+*.csv
+*.tsv
+*.feather
+*.bin
+*.pth
+*.pt
+*.h5
+*.zip
+*.tar
+*.tar.gz
+*.whl
+*.log
+
+# SO
+.DS_Store
+Thumbs.db
