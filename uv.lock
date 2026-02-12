@@ -437,7 +437,7 @@ requires-dist = [
     { name = "isort", marker = "extra == 'dev'" },
     { name = "nltk", specifier = ">=3.9.2" },
     { name = "numpy", specifier = "==1.26.4" },
-    { name = "openpyxl", specifier = ">=3.1.5" },
+    { name = "openpyxl", specifier = "==3.1.5" },
     { name = "pandas", specifier = "==2.1.1" },
     { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
