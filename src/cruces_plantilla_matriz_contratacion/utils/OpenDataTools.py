@@ -244,3 +244,65 @@ class OpenDataTools:
         contratos_tvec = self.clean_results_tvec(pd.DataFrame.from_dict(contratos_tvec))
 
         return {'SECOP_I': contratos_s1, 'SECOP_II': contratos_s2, 'TVEC': contratos_tvec}
+    
+    def get_contratos_por_num_contrato(self, nums_contrato, limit=10000):
+        """
+        Las cédulas deben estar en el formato '("30579584")'
+        """
+        query_s1 = f"""
+            select 
+                uid, numero_de_contrato, id_adjudicacion, anno_cargue_secop, 
+                fecha_de_cargue_en_el_secop, anno_firma_contrato, fecha_de_firma_del_contrato,
+                fecha_fin_ejec_contrato, tipo_de_contrato, modalidad_de_contratacion, 
+                causal_de_otras_formas_de, estado_del_proceso, objeto_del_contrato_a_la, 
+                detalle_del_objeto_a_contratar, tipo_identifi_del_contratista, 
+                identificacion_del_contratista, nom_razon_social_contratista, 
+                tipo_doc_representante_legal, identific_representante_legal, 
+                nombre_del_represen_legal, nombre_entidad, nit_de_la_entidad, 
+                departamento_entidad, municipio_entidad, valor_contrato_con_adiciones, 
+                ruta_proceso_en_secop_i
+            where
+                numero_de_contrato in {nums_contrato}
+            limit
+            {limit}
+            """
+        logger.debug(f'Query on SI: {query_s1}')
+
+        contratos_s1 = self.client.get(self.secopi_contratos, content_type="json", 
+                                       query=query_s1)
+
+        query_s2 = f"""
+            select 
+                id_contrato, fecha_de_firma, tipo_de_contrato, 
+                modalidad_de_contratacion, estado_contrato, objeto_del_contrato, 
+                tipodocproveedor, documento_proveedor, proveedor_adjudicado, 
+                tipo_de_identificaci_n_representante_legal, identificaci_n_representante_legal, 
+                nombre_representante_legal, nombre_entidad, nit_entidad, departamento, ciudad, 
+                valor_del_contrato, urlproceso
+            where
+                id_contrato in {nums_contrato}
+            limit
+            {limit}
+            """
+        # Moved columns: fecha_de_fin_de_ejecucion
+        contratos_s2 = self.client.get(self.secopii_contratos, content_type="json", 
+                                       query=query_s2)
+        
+        # query_tvec = f"""
+        #     select 
+        #         identificador_de_la_orden, a_o, fecha, agregacion, estado, items, ciudad, 
+        #         total, entidad, nit_entidad, solicitante, proveedor
+        #     where
+        #         nit_proveedor in {cedulas}
+        #     limit
+        #     {limit}
+        #     """
+        # contratos_tvec = self.client.get(self.tvec_consolidado, content_type="json", 
+        #                                  query=query_tvec)
+        
+        # Limpieza de los contratos
+        contratos_s1 = self.clean_results_S1(pd.DataFrame.from_dict(contratos_s1))
+        contratos_s2 = self.clean_results_S2(pd.DataFrame.from_dict(contratos_s2))
+        # contratos_tvec = self.clean_results_tvec(pd.DataFrame.from_dict(contratos_tvec))
+
+        return {'SECOP_I': contratos_s1, 'SECOP_II': contratos_s2} #, 'TVEC': contratos_tvec}
