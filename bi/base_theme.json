@@ -1,0 +1,29 @@
+{
+  "name": "ICBF Presupuestal",
+  "dataColors": [
+    "#003B5C",
+    "#0077B6",
+    "#2A9D8F",
+    "#E9C46A",
+    "#D62828"
+  ],
+  "background": "#F5F7FA",
+  "foreground": "#2B2D42",
+  "tableAccent": "#003B5C",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "fontSize": 12,
+            "color": {
+              "solid": {
+                "color": "#2B2D42"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
