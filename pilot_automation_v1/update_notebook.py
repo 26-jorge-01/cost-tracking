@@ -58,7 +58,7 @@ cell_4_source = """def setup_environment():
         df_int = pd.read_excel(xl_master, sheet_name='Integrales', header=3)
         regionals.update(df_int.iloc[:, 1].dropna().unique())
     if 'Comunitarios' in xl_master.sheet_names:
-        df_com = pd.read_excel(xl_master, sheet_name='Comunitarios', header=0)
+        df_com = pd.read_excel(xl_master, sheet_name='Comunitarios_agrupado', header=0)
         regionals.update(df_com.iloc[:, 0].dropna().unique())
         
     count = 0
@@ -103,6 +103,7 @@ MODALITIES = {
         "template_sheet": "MATRIZ",
         "sheet_to_delete": None,
         "rename_sheet_to": None,
+        "master_sheet": "Comunitarios_agrupado",
         "start_row": 3,
         "template_max_rows": 3232,
         "group_column_idx": 0,
@@ -140,7 +141,8 @@ def generate_templates():
     
     try:
         for sheet_name, mod_cfg in MODALITIES.items():
-            if sheet_name not in xl_master.sheet_names:
+            master_sheet = mod_cfg.get("master_sheet", sheet_name)
+            if master_sheet not in xl_master.sheet_names:
                 print(f"Skipping modality '{sheet_name}' because it was not found in the master file.", flush=True)
                 continue
             
@@ -151,7 +153,7 @@ def generate_templates():
             print(f"  Template File: {template_path}", flush=True)
             
             header_row = mod_cfg.get("header_row")
-            df_master = pd.read_excel(xl_master, sheet_name=sheet_name, header=header_row)
+            df_master = pd.read_excel(xl_master, sheet_name=master_sheet, header=header_row)
             
             group_col_idx = mod_cfg["group_column_idx"]
             df_data = df_master.dropna(subset=[df_master.columns[group_col_idx]])
@@ -292,7 +294,7 @@ cell_10_source = """def run_orchestration():
     df_master_int = pd.read_excel(xl_master, sheet_name='Integrales', header=3)
     df_master_int['Regional_Clean'] = df_master_int.iloc[:, 1].apply(clean_name)
     
-    df_master_com = pd.read_excel(xl_master, sheet_name='Comunitarios', header=0)
+    df_master_com = pd.read_excel(xl_master, sheet_name='Comunitarios_agrupado', header=0)
     df_master_com['Regional_Clean'] = df_master_com.iloc[:, 0].apply(clean_name)
     
     audit_results = []

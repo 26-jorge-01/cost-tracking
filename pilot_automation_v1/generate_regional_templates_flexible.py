@@ -60,6 +60,7 @@ MODALITIES = {
         "template_sheet": "MATRIZ",       # Write directly into the main MATRIZ sheet
         "sheet_to_delete": None,           # No sheet needs deleting
         "rename_sheet_to": None,          # No sheet needs renaming
+        "master_sheet": "Comunitarios_agrupado",  # Real sheet name in the master file
         "start_row": 3,                         # Row index where data insertion starts (1-indexed)
         "template_max_rows": 3232,              # Max rows of formatted cells in Tolima HCB template
         
@@ -148,7 +149,8 @@ def run_flexible_generation():
     
     try:
         for sheet_name, mod_cfg in MODALITIES.items():
-            if sheet_name not in xl_master.sheet_names:
+            master_sheet = mod_cfg.get("master_sheet", sheet_name)
+            if master_sheet not in xl_master.sheet_names:
                 print(f"Skipping modality '{sheet_name}' because it was not found in the master file.", flush=True)
                 continue
             
@@ -165,7 +167,7 @@ def run_flexible_generation():
                 
             # Read sheet from master file
             header_row = mod_cfg.get("header_row")
-            df_master = pd.read_excel(xl_master, sheet_name=sheet_name, header=header_row)
+            df_master = pd.read_excel(xl_master, sheet_name=master_sheet, header=header_row)
             
             group_col_idx = mod_cfg["group_column_idx"]
             df_data = df_master.dropna(subset=[df_master.columns[group_col_idx]])
