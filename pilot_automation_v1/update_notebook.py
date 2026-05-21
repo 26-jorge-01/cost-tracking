@@ -93,7 +93,7 @@ MODALITIES = {
         "group_column_idx": 1,
         "header_row": 3,
         "column_mapping": {
-            "A": 1, "B": 2, "C": 3, "D": 9, "E": 8, "F": 8, "G": 0, "H": 10,
+            "A": 0, "B": 1, "C": 2, "D": 3, "E": 9, "F": 8, "G": 8, "H": 10,
             "K": "const:1", "L": "const:", "M": 7, "N": "const:", "Q": "const:",
             "R": "const:", "S": "const:", "T": "const:", "U": "const:", "V": "const:"
         }
@@ -108,12 +108,12 @@ MODALITIES = {
         "group_column_idx": 0,
         "header_row": 0,
         "column_mapping": {
-            "A": 0, "B": "const:", "C": "const:", "D": 1, "E": 2, "F": 7, "G": 7,
-            "H": "const:", "I": 10, "J": 11, "K": 11, "L": 11, "M": 10, "N": "const:",
-            "O": "const:", "Q": "const:", "R": "const:", "S": "const:", "X": 12,
-            "Y": "const:2026", "AH": "const:", "AK": "const:", "AM": "const:",
-            "AT": "const:", "AY": "const:", "BD": "const:", "BF": "const:",
-            "CC": "const:", "CD": "const:", "CE": "const:", "CG": "const:", "CJ": "const:0.05"
+            "A": "const:", "B": 3, "C": 0, "D": "const:", "E": "const:", "F": 1, "G": 2,
+            "H": 7, "I": 7, "J": "const:", "K": 10, "L": 11, "M": 11, "N": 11, "O": 10,
+            "P": "const:", "Q": "const:", "S": "const:", "T": "const:", "U": "const:", "Z": 12,
+            "AA": "const:2026", "AJ": "const:", "AM": "const:", "AO": "const:",
+            "AV": "const:", "BA": "const:", "BF": "const:", "BH": "const:",
+            "CE": "const:", "CF": "const:", "CG": "const:", "CI": "const:", "CL": "const:0.05"
         }
     }
 }
