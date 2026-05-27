@@ -155,6 +155,14 @@ def main():
     if c.COL_LLAVE in df_celdas.columns:
         df_celdas[c.COL_LLAVE] = df_celdas[c.COL_LLAVE].fillna(df_celdas['Ruta Archivo'].apply(lambda x: Path(x).parent.name))
 
+    # Calcular SALDO_DISPONIBLE cuando la celda está vacía en origen
+    if 'SALDO_DISPONIBLE' in df_celdas.columns and 'VALOR_MENSUAL' in df_celdas.columns and 'VALOR_EJECUTADO' in df_celdas.columns:
+        mask = df_celdas['SALDO_DISPONIBLE'].isna()
+        df_celdas.loc[mask, 'SALDO_DISPONIBLE'] = (
+            pd.to_numeric(df_celdas.loc[mask, 'VALOR_MENSUAL'], errors='coerce') -
+            pd.to_numeric(df_celdas.loc[mask, 'VALOR_EJECUTADO'], errors='coerce')
+        )
+
     df_pdfs = pd.DataFrame(all_pdfs, columns=['Ruta Archivo', 'Fecha Proceso', 'Subcarpeta', 'Nombre PDF', 'Mes Detectado', 'Valor Validacion', 'Hoja Usada'])
 
     df_celdas.to_excel(c.BASE_PATH / c.OUTPUT_VALORES_CELDAS, index=False)

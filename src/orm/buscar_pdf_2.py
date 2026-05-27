@@ -104,6 +104,13 @@ def actualizar_contratos_y_reescribir_limpio():
 
         # Vincular
         df_final = vincular_pdfs_a_contratos(df_celdas, df_pdfs)
+
+        # Calcular % de cumplimiento legal
+        month_cols = list(config.MESES_MAP.values())
+        df_final['% CUMPLIMIENTO'] = df_final[month_cols].apply(
+            lambda row: round(sum(1 for v in row if v != 'N') / len(month_cols) * 100, 1),
+            axis=1
+        )
         
         # Guardar Maestro
         with pd.ExcelWriter(config.MASTER_FILE_PATH, engine='openpyxl') as writer:
