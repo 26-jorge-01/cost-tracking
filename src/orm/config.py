@@ -6,10 +6,10 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # 1. Carpeta raíz donde se encuentran todos los subdirectorios de contratos
-BASE_PATH = ROOT_DIR / "data" / "Actas"
+BASE_PATH = ROOT_DIR / "data" / "actas_20_05_2026"
 
 # 2. Archivo Excel maestro que se desea actualizar con los resultados
-MASTER_FILE_PATH = ROOT_DIR / "data" / "TRAER_DATO_PDF_POR_MES.xlsx"
+MASTER_FILE_PATH = ROOT_DIR / "data" / "REPORTE_ACTAS_20-05-2026.xlsx"
 
 # --- CONFIGURACIÓN DE COLUMNAS (MAPPING) ---
 # Aquí puedes asignar nombres legibles a los datos extraídos de las celdas de Excel.

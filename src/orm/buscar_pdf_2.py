@@ -111,7 +111,28 @@ def actualizar_contratos_y_reescribir_limpio():
             lambda row: round(sum(1 for v in row if v != 'N') / len(month_cols) * 100, 1),
             axis=1
         )
-        
+
+        # --- Pre-cálculo de inejecuciones (para Power BI) ---
+        # Asegurar tipos numéricos
+        df_final['VALOR_EJECUTADO'] = pd.to_numeric(df_final['VALOR_EJECUTADO'], errors='coerce').fillna(0)
+        df_final['VALOR_MENSUAL'] = pd.to_numeric(df_final['VALOR_MENSUAL'], errors='coerce').fillna(0)
+        df_final['SALDO_DISPONIBLE'] = pd.to_numeric(df_final['SALDO_DISPONIBLE'], errors='coerce').fillna(0)
+
+        # Mapa de orden de meses
+        MES_ORDEN = {
+            'ENERO': 1, 'FEBRERO': 2, 'MARZO': 3, 'ABRIL': 4, 'MAYO': 5, 'JUNIO': 6,
+            'JULIO': 7, 'AGOSTO': 8, 'SEPTIEMBRE': 9, 'OCTUBRE': 10, 'NOVIEMBRE': 11, 'DICIEMBRE': 12
+        }
+        df_final['Mes Orden'] = df_final['Hoja Usada'].str.upper().map(MES_ORDEN)
+
+        # Ordenar por contrato y mes para acumulados correctos
+        df_final = df_final.sort_values(['LLAVE', 'Mes Orden']).reset_index(drop=True)
+
+        df_final['ESPERADO_ACUM'] = df_final.groupby('LLAVE')['VALOR_MENSUAL'].cumsum()
+        df_final['PAGADO_ACUM'] = df_final.groupby('LLAVE')['VALOR_EJECUTADO'].cumsum()
+        df_final['ESPERADO_MES_ANT'] = df_final.groupby('LLAVE')['ESPERADO_ACUM'].shift(1).fillna(0)
+        df_final['POSIBLE_INEJECUCION'] = (df_final['ESPERADO_MES_ANT'] - df_final['PAGADO_ACUM']).clip(lower=0)
+
         # Guardar Maestro
         with pd.ExcelWriter(config.MASTER_FILE_PATH, engine='openpyxl') as writer:
             df_final.to_excel(writer, sheet_name='CONTRATOS', index=False)
