@@ -48,6 +48,14 @@ A continuación, se listan los pilares ordenados desde el **desarrollo más reci
 *   🔀 Pilar 5: [Conciliación, NIT Bridge y SECOP (24 de Abril de 2026)](file:///d:/ICBF/cost-tracking/docs/05_cruce_secop_nit_bridge.md)
 *   📊 Pilar 6: [Dashboards y BI Ejecutivos (Abril - Mayo de 2026)](file:///d:/ICBF/cost-tracking/docs/06_dashboards_visualizacion.md)
 
+### 📘 Documentación Complementaria (Nuevos Documentos)
+*   🔧 Pilar 4 Detallado: [Pipeline Metaverso (todos los scripts paso a paso)](file:///d:/ICBF/cost-tracking/docs/07_pipeline_metaverso_detallado.md)
+*   📂 Split + Monitoreo: [División HCB por Regional y Sistema de Calidad](file:///d:/ICBF/cost-tracking/docs/08_split_hcb_monitoreo.md)
+*   🤖 Automatización Piloto: [Scripts detallados de generación de plantillas](file:///d:/ICBF/cost-tracking/docs/09_automatizacion_piloto_detallada.md)
+*   🐳 Infraestructura: [Docker, DevContainer, make.bat y pyproject.toml](file:///d:/ICBF/cost-tracking/docs/10_infraestructura_docker.md)
+*   📁 Datos: [Estructura y contenido de data/ y bi/](file:///d:/ICBF/cost-tracking/docs/11_estructura_datos.md)
+*   🛠️ Utilitarios: [Scripts auxiliares, notebooks y utilidades](file:///d:/ICBF/cost-tracking/docs/12_scripts_utilitarios.md)
+
 ---
 
 ## 🔀 Flujo de Ejecución Mensual (Paso a Paso)
